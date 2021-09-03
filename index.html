@@ -17,7 +17,7 @@
     <div id="popupbackground">
         <div id="popup">
             <form>
-                <a > 
+                <a>
                     <i data-feather="x-square"></i>
                 </a>
                 <label for="title"> Título</label>
@@ -25,19 +25,28 @@
                 <input type="text" name="title" placeholder="Descrição do lançamento" />
                 <div>
                     <label for="price"> Preço </label>
-                    <input type="text " name="price" placeholder="valor em reais (R$)">
+                    <input type="number " min="0" step="0.01" name="price" placeholder="valor em reais (R$)">
+                    <label for="currency">Moeda</label>
+
+                    <select name="currency" id="currency">
+                        <option value="BRL" style="display: none;" selected></option>
+                        <option value="BRL">R$</option>
+                        <option value="USD">US$</option>
+                    </select>
+                </div>
+                <div>
 
                     <label for="category"> Categoria </label>
                     <select name="category" id="category">
-                        <option value=""></option>
+                        <option value="Saída" style="display: none;" selected></option>
                         <option value="Entrada"> Entrada</option>
                         <option value="saida"> Saída</option>
                     </select>
-                </div>
 
-                <label for="identifier">Identificador</label>
-                 <input type="text " name="identifier" placeholder="Drescrição da Categoria">  
-                 <button>Cadastrar</button>
+                    <label for="identifier">Identificador</label>
+                    <input type="text " name="identifier" placeholder="Drescrição da Categoria">
+                </div>
+                <button type="submit">Cadastrar</button>
             </form>
         </div>
     </div>
@@ -103,7 +112,7 @@
             </thead>
             <!-- body da table -->
             <tbody>
-                 
+
                 <!-- o javascript vai preencher isso dinâmicamente -->
 
             </tbody>
