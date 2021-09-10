@@ -1,5 +1,5 @@
 // transações ficticias cadastradas(criadas manualmente)
-var transactions = JSON.parse(localStorage.getItem("@ewaller/transactions"))||[];
+var transactions = JSON.parse(localStorage.getItem("@ewallet/transactions"))||[];
 
 
 
@@ -60,7 +60,7 @@ form.addEventListener("submit", (event) => {
   var date = new Date().toLocaleDateString();
   var transaction = {
     title,
-    price,
+    price: parseFloat(price),
     category,
     currency,
     identifier,
@@ -72,6 +72,35 @@ form.addEventListener("submit", (event) => {
   localStorage.setItem("@ewallet/transactions", JSON.stringify (transactions));
 window.location.reload();
 });
+
+//calcular os valores
+var entrada = document.querySelector(".in h1")
+var saida = document.querySelector(".out h1")
+var total = document.querySelector(".total h1")
+
+
+var valoresEntrada = transactions.reduce((count, currentValue)=> {
+  if(currentValue.category === "entrada"){
+    return count + currentValue.price;
+  }else {
+    return count;
+  }
+} , 0);
+
+var valoresSaida = transactions.reduce((count, currentValue)=> {
+  if(currentValue.category === "saida"){
+    return count + currentValue.price;
+  }else {
+    return count;
+  }
+} , 0);
+
+var somatorio = valoresEntrada - valoresSaida
+
+entrada.innerHTML = moneyFormat("BRL" , valoresEntrada)
+saida.innerHTML = moneyFormat("BRL" , valoresSaida)
+total.innerHTML = moneyFormat("BRL" , somatorio)
+
 // metodos ou funções
 function moneyFormat(currency, price) {
   var value = new Intl.NumberFormat("pt-BR", {
