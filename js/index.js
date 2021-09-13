@@ -1,3 +1,16 @@
+var icons = {
+  "alimentação":"coffee",
+  "venda":"dollar-sign",
+  "Saúde":"heart",
+  "Transporte":"map-pin",
+  "Educação":"book",
+  "Investimento":"pie-chart",
+  "Fatura":"credit-card"
+}
+
+
+
+
 // transações ficticias cadastradas(criadas manualmente)
 var transactions = JSON.parse(localStorage.getItem("@ewallet/transactions"))||[];
 
@@ -6,27 +19,33 @@ var transactions = JSON.parse(localStorage.getItem("@ewallet/transactions"))||[]
 // adiciona o corpo da tabela na variavel table
 var table = document.querySelector("#table tbody");
 // mapeamento das transações
-transactions.map((transactions) => {
+transactions.map((transaction) => {
   var row = document.createElement("tr");
   var title = document.createElement("td");
-  title.append(transactions.title);
+  title.append(transaction.title);
 
   var price = document.createElement("td");
-  var value = moneyFormat(transactions.currency, transactions.price);
+  var value = moneyFormat(transaction.currency, transaction.price);
   price.append(value);
 
   var category = document.createElement("td");
-  category.append(transactions.category);
+  category.classList.add(`${transaction.category === "entrada" ? "green" :"red"}`);
+  // <i></i>
+  var icon = document.createElement("i");
+  icon.setAttribute("data-feather", icons[transaction.identifier])
+  category.appendChild(icon)
+  category.append(transaction.identifier);
 
   var date = document.createElement("td");
-  date.append(transactions.date);
+  date.append(transaction.date);
 
   row.appendChild(title);
   row.appendChild(price);
   row.appendChild(category);
   row.appendChild(date);
-
+  
   table.appendChild(row);
+  feather.replace()
 });
 
 var addBtn = document.querySelector("#addButton a");
